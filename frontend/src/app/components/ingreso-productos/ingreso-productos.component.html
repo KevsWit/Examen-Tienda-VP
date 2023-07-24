@@ -1,0 +1,9 @@
+<h1>Hola</h1>
+<div>
+    <form (ngSubmit)="onSubmit()">
+      <label for="datoHexInput">Código de Tarjeta (DatoHex):</label>
+      <input type="text" id="datoHexInput" name="datoHex" [(ngModel)]="respuestaObtenida" required>
+      <button type="submit">Obtener código</button>
+    </form>
+  </div>
+  
