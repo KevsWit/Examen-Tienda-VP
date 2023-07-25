@@ -11,6 +11,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { GestionProductoComponent } from './components/gestion-producto/gestion-producto.component';
 import { HomeComponent } from './components/home/home.component'
 import { RouterModule, Route } from '@angular/router';
+import { VerProductosComponent } from './components/ver-productos/ver-productos.component';
+import { OperadorComponent } from './components/operador/operador.component';
+import { FacturarComponent } from './components/facturar/facturar.component';
 
 const rutas:Route[]=[
   {path:'home', component:HomeComponent},
@@ -18,7 +21,10 @@ const rutas:Route[]=[
   {path:'signIn', component:SignInComponent},
   {path:'admin', component:AdminComponent},
   {path:'gestionProducto', component:GestionProductoComponent},
-  {path:'ingresoProducto', component:IngresoProductosComponent}
+  {path:'ingresoProducto', component:IngresoProductosComponent},
+  {path:'verProducto', component:VerProductosComponent},
+  {path:'operador', component:OperadorComponent},
+  {path:'facturar', component:FacturarComponent}
   ];
 
 @NgModule({
@@ -30,7 +36,10 @@ const rutas:Route[]=[
     OfertasComponent,
     AdminComponent,
     GestionProductoComponent,
-    HomeComponent
+    HomeComponent,
+    VerProductosComponent,
+    OperadorComponent,
+    FacturarComponent
   ],
   imports: [
     BrowserModule,

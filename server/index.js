@@ -1,16 +1,31 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const morgan=require('morgan');
+const {mongoose}=require('./database');
 const app = express();
 const port = 3000; // Puerto del servidor
+app.set('nombreApp','Aplicacion para manejo de tienda');
+app.set('puerto',process.env.PORT|| 3000);
+
 
 // Middleware para habilitar CORS (permitir todas las solicitudes desde cualquier origen)
 app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Variable para almacenar el último dato recibido
 let ultimoDatoHex = '';
+
+app.use('/api/facturas',require('./routes/facturas.routes'))
+app.use('/api/productos',require('./routes/productos.routes'))
+//app.use('/api/usuarios',require('./routes/usuarios.routes'))
+
+app.listen(app.get('puerto'), ()=>{
+    console.log('Nombre de la App',app.get('nombreApp'));
+    console.log('Puesto del servidor',app.get('puerto'));
+})
 
 app.post('/datohex', (req, res) => {
     const datoHex = req.body.datoHex; // Obtener el valor DatoHex desde el cuerpo de la solicitud
@@ -41,8 +56,3 @@ app.get('/ultimoDatoHex', (req, res) => {
     // Enviar el valor del último dato recibido en la respuesta
     res.send(ultimoDatoHex);
   });
-
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
-});
