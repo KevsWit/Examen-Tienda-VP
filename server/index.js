@@ -20,6 +20,8 @@ let ultimoDatoHex = '';
 
 app.use('/api/facturas',require('./routes/facturas.routes'))
 app.use('/api/productos',require('./routes/productos.routes'))
+app.use('/api/registro',require('./routes/server.routes'))
+app.use('/api/login',require('./routes/usuarios.routes'))
 //app.use('/api/usuarios',require('./routes/usuarios.routes'))
 
 app.listen(app.get('puerto'), ()=>{

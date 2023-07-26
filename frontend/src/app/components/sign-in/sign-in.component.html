@@ -5,14 +5,14 @@
         <div class="card">
           <div class="card-header">Iniciar Sesión</div>
           <div class="card-body">
-            <form (ngSubmit)="onSubmit()">
+            <form (ngSubmit)="Ingreso()">
               <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" required [(ngModel)]="email">
+                <input type="email" class="form-control" id="email" name="email" required [(ngModel)]="users.correo">
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password">
+                <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="users.psw">
               </div>
               <button type="submit" class="btn btn-primary">Ingresar</button>
             </form>

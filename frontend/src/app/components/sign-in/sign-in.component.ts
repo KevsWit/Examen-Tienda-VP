@@ -1,19 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-sing-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent {
-  email: string = '';
-  password: string = '';
-
-  constructor(private router: Router) {}
-
-  onSubmit() {
-    // Aquí puedes agregar la lógica para verificar el inicio de sesión
-    // Si el inicio de sesión es válido, redirige al componente de bienvenida
-    this.router.navigateByUrl('/admin');
+export class SingInComponent implements OnInit {
+  users = {
+    correo: '',
+    psw: ''
   }
+
+    constructor(private ServiceAuth:AuthService, private router:Router){
+
+  }
+  ngOnInit(): void {
+      
+  }
+ Ingreso(){
+  this.ServiceAuth.login(this.users).subscribe(
+    res => {
+      console.log(res)
+      localStorage.setItem('auth_token', res.token)
+      this.router.navigate(['/admin'])
+    }
+
+  )
+ }
 }
