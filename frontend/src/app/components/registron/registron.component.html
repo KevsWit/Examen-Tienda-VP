@@ -1,28 +1,33 @@
-<form (ngSubmit)="RegistrarUsuario()">
+<form (ngSubmit)="RegistrarUsuario()" #userForm="ngForm">
     <div>
         <label>Nombre</label>
-        <input type="text" [(ngModel)]="NewUser.nombre" name="nombre"> 
+        <input type="text" [(ngModel)]="NewUser.nombre" name="nombre" required> 
     </div>
     <div>
         <label>Cedula</label>
-        <input type="text" [(ngModel)]="NewUser.ci" name="cedula"> 
+        <input type="text" [(ngModel)]="NewUser.ci" name="cedula" required> 
     </div>
     <div>
         <label>Correo Electronico</label>
-        <input type="text" [(ngModel)]="NewUser.correo" name="email"> 
+        <input type="text" [(ngModel)]="NewUser.correo" name="email" required pattern="[a-zA-Z0-9._%+-]+@est\.ups\.edu\.ec"> 
     </div>
+   
     <div>
         <label>Usuario</label>
-        <input type="text" [(ngModel)]="NewUser.usuario" name="usuario"> 
+        <input type="text" [(ngModel)]="NewUser.usuario" name="usuario" required> 
     </div>
     <div>
         <label>Rol</label>
-        <input type="text" [(ngModel)]="NewUser.role" name="usuario"> 
+        <input type="text" [(ngModel)]="NewUser.role" name="usuario" required> 
     </div>
     <div>
         <label>Contraseña</label>
-        <input type="text" [(ngModel)]="NewUser.psw" name="passwd"> 
+        <input type="text" [(ngModel)]="NewUser.psw" name="passwd" required> 
     </div>
     
     <input type="submit" value="Enviar">
+    <div *ngIf="userForm.invalid && (userForm.dirty || userForm.submitted)" style="color: red;">
+    Por favor, completa el formulario correctamente.
+  </div>
+    <div *ngIf="mensajeAviso !== ''" style="color: red;">{{ mensajeAviso }}</div>
 </form>

@@ -17,7 +17,7 @@ import { RegistronComponent } from './components/registron/registron.component';
 import { RoleGuard } from './services/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
-import { IndexComponent } from './components/index/index/index.component';
+import { IndexComponent } from './components/index/index.component';
 
 const rutas:Route[]=[
   {path:'home', component:HomeComponent},

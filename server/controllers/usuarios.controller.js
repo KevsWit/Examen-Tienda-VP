@@ -12,25 +12,66 @@ usuariosController.getUsuarios = async (req, res) => {
 }
 
 usuariosController.createUsuarios = async (req, res) => {
-    const UserCreate  = new Usuario(req.body);
-    console.log(UserCreate);
-    await UserCreate.save();
-    res.json('status: usuario guardado muy bien Carlitos');
+  try {
+    const { correo } = req.body;
+
+    // Verificar si el correo ya está en uso
+    const existeUsuario = await VerificarUsuario(correo);
+    if (existeUsuario) {
+      return res.status(400).json({ error: 'El correo ya está en uso' });
+    }
+
+    // Si el correo no está en uso, creamos el nuevo usuario
+    const newUser = new Usuario(req.body);
+    await newUser.save();
+
+    res.json({ message: 'Usuario guardado exitosamente' });
+  } catch (error) {
+    console.error('Error al crear el usuario:', error);
+    res.status(500).json({ error: 'Hubo un error al crear el usuario' });
+  }
+};
+
+
+// usuariosController.verificar = async(req,res)=>{
+//   const correos = req.body.correo
+//   const existeUsuario = await VerificarUsuario(correos)
+//   if(existeUsuario){
+//     res.json({error: 'El correo ya esta en uso'})
+//   }
+// }
+
+async function VerificarUsuario(correo){
+  let existe = false;
+  const existingUser = await Usuario.findOne({ correo });
+  if (existingUser) {
+    let = true
+    return let
+  }
+  return existe
 }
 
 usuariosController.authUsuarios = async (req, res) => {
-    const correo = req.body.correo;  
-    const passw = req.body.psw;
+  try {
+    const { correo, psw } = req.body;
+  
+    // Buscar al usuario por el correo en la base de datos
     const user = await Usuario.findOne({ correo });
-    if (!user) {
-      return res.json({error: "Correo/Contraseña Incorrecto"})
+  
+    // Verificar si el usuario no existe o si la contraseña no coincide
+    if (!user || user.psw !== psw) {
+      return res.status(401).json({ error: "Correo/Contraseña Incorrecto" });
     }
-    if(user.psw !== passw){
-        return res.json({error: "Correo/Contraseña Incorrecto"})
-      }  
-      
-    res.json({sucess: 'Login Correcto', token: createToken(user)})
-  };
+  
+    // Si el usuario existe y la contraseña coincide, generar un token y enviar la respuesta
+    const token = createToken(user);
+    res.json({ success: 'Login Correcto', token });
+  } catch (error) {
+    console.error('Error al autenticar el usuario:', error);
+    res.status(500).json({ error: "Error al intentar iniciar sesión. Por favor, intenta nuevamente más tarde." });
+  }
+};
+ 
 
 usuariosController.getUsuarioById = async (req, res) => {
     console.log(req.params.id);
@@ -72,17 +113,6 @@ usuariosController.deleteUsuario = async (req, res) => {
 
   
   
-// gastosController.getUsuarioEstado = async (req, res) => {
-//     const estado = req.params.estado;
-//     try {
-//         const gastosTipo = await Gasto.find({estado:estado});
-//         res.json(gastosTipo);
-//     } catch (error) {
-//         res.status(500).json({ message: "Error al obtener usuarios por estado." });
-//     }
-// }
-
-
 
 function createToken(user){
     const tokenPayload= {

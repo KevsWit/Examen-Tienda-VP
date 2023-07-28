@@ -15,7 +15,6 @@ export class UsersService {
   registro(formValues: {}) :Observable<any>{
     return this.http.post<any>(this.URL, formValues).pipe(
       tap(response => {
-          console.log(response)
       })
     )
   }
@@ -25,6 +24,7 @@ export class UsersService {
       catchError(this.handleError)
     );
   }
+
 
   editUsuarios(_id:any, usuario:Usuario): Observable<any>{
     return this.http.put<any>(`${this.URL}/${_id}`,usuario)
