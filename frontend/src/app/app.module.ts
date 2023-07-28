@@ -11,26 +11,27 @@ import { AdminComponent } from './components/admin/admin.component';
 import { HomeComponent } from './components/home/home.component'
 import { RouterModule, Route } from '@angular/router';
 import { VerProductosComponent } from './components/ver-productos/ver-productos.component';
-import { OperadorComponent } from './components/operador/operador.component';
 import { FacturarComponent } from './components/facturar/facturar.component';
 import { GestionProductoComponent } from './components/gestion-producto/gestion-producto.component';
 import { RegistronComponent } from './components/registron/registron.component';
 import { RoleGuard } from './services/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-
+import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
+import { IndexComponent } from './components/index/index/index.component';
 
 const rutas:Route[]=[
   {path:'home', component:HomeComponent},
   {path:'ofertas', component:OfertasComponent},
   {path:'signIn', component:SingInComponent},
-  {path:'admin', component:AdminComponent, canActivate: [RoleGuard], data: {requiredRole: 'admin'}},
-  {path:'gestionProducto', component:GestionProductoComponent},
-  {path:'ingresoProducto', component:IngresoProductosComponent},
-  {path:'verProducto', component:VerProductosComponent},
-  {path:'operador', component:OperadorComponent},
-  {path:'facturar', component:FacturarComponent},
-  {path:'registro', component:RegistronComponent, canActivate: [RoleGuard], data: {requiredRole: 'admin'}}
-  ];
+  {path:'gestionProducto', component:GestionProductoComponent, canActivate: [RoleGuard], data: {requiredRole: 'admin'}},
+  {path:'ingresoProducto', component:IngresoProductosComponent, canActivate: [RoleGuard], data: {requiredRole: 'admin'}},
+  {path:'verProducto', component:VerProductosComponent , canActivate: [RoleGuard], data: {requiredRole: 'admin'}},
+  {path:'facturar', component:FacturarComponent, canActivate: [RoleGuard], data: {requiredRole: 'operador'}},
+  {path:'registro', component:RegistronComponent, canActivate: [RoleGuard], data: {requiredRole: 'admin'}},
+  {path:'listaUsuarios', component:ListaUsuariosComponent, canActivate: [RoleGuard], data: {requiredRole: 'admin'}},
+  {path:'index', component:IndexComponent}
+
+];
 
 @NgModule({
   declarations: [
@@ -43,9 +44,10 @@ const rutas:Route[]=[
     GestionProductoComponent,
     HomeComponent,
     VerProductosComponent,
-    OperadorComponent,
     FacturarComponent,
-    RegistronComponent
+    RegistronComponent,
+    ListaUsuariosComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

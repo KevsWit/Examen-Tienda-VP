@@ -17,8 +17,8 @@ export class RoleGuard implements CanActivate {
       const userRole = this.authService.getUserRole();
       if (userRole === requiredRole) {
         return true;
-      } else {
-        this.router.navigate(['/access-denied']); // Redirigir a una página de acceso denegado si el usuario no tiene el rol adecuado
+      }else {
+        this.router.navigate(['/SingIn']); // Redirigir a una página de acceso denegado si el usuario no tiene el rol adecuado
         return false;
       }
     }

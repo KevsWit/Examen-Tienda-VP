@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan=require('morgan');
 const {mongoose}=require('./database');
 const app = express();
+const { chequearToken } = require('./middlewares/auth')
 const port = 3000; // Puerto del servidor
 app.set('nombreApp','Aplicacion para manejo de tienda');
 app.set('puerto',process.env.PORT|| 3000);
@@ -20,7 +21,7 @@ let ultimoDatoHex = '';
 
 app.use('/api/facturas',require('./routes/facturas.routes'))
 app.use('/api/productos',require('./routes/productos.routes'))
-app.use('/api/registro',require('./routes/server.routes'))
+app.use('/api/registro',chequearToken,require('./routes/server.routes'))
 app.use('/api/login',require('./routes/usuarios.routes'))
 //app.use('/api/usuarios',require('./routes/usuarios.routes'))
 
