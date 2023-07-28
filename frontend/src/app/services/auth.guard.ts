@@ -23,7 +23,7 @@ export class RoleGuard implements CanActivate {
       }
     }
 
-    this.router.navigate(['/SingIn']); // Redirigir a la página de inicio de sesión si el usuario no está autenticado
+    this.router.navigate(['/home']); // Redirigir a la página de inicio de sesión si el usuario no está autenticado
     return false;
   }
 }

@@ -36,7 +36,7 @@ export class SingInComponent implements OnInit {
         localStorage.setItem('auth_token', res.token);
 
         // Navegar a la ruta '/admin' después de iniciar sesión correctamente.
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/home']);
       },
       (error: any) => {
         // Manejar cualquier error que ocurra durante el proceso de inicio de sesión.
